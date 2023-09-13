@@ -4,7 +4,42 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   padding: 0;
+  margin: 0;
+  overflow: hidden;
 
   font-family: "Roboto", sans-serif;
   color: bisque;
+
+  height: 100vh;
+  justify-content: space-between;
+}
+
+/* utility classes */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+/* -------------- */
+
+header {
+  /* border: 2px solid; */
+  text-align: center;
+}
+
+main {
+  flex: 1;
+}
+
+h1 {
+  /* border: 2px solid; */
+  font-size: 3rem;
+}
+
+body > * {
+  border: 2px solid;
 }
