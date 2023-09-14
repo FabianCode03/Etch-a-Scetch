@@ -33,6 +33,9 @@ header {
 
 main {
   flex: 1;
+  padding: 2rem;
+  justify-content: center;
+  align-items: stretch;
 }
 
 h1 {
@@ -41,5 +44,24 @@ h1 {
 }
 
 body > * {
-  border: 2px solid;
+  /* border: 2px solid; */
+}
+
+.wrapper {
+  /* border: 2px solid black; */
+  justify-content: space-between;
+  flex: 1;
+}
+
+.wrapper > * {
+  /* border: 2px solid orange; */
+  background-color: grey;
+}
+
+.pixel-container {
+  aspect-ratio: 1;
+}
+
+.buttons-and-tools {
+  flex-basis: 20%;
 }
