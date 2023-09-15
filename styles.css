@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   background: linear-gradient(to top, #30cfd0 0%, #330867 100%);
   background-size: 100% 100%;
@@ -32,19 +36,13 @@ header {
 }
 
 main {
-  flex: 1;
+  border: solid;
   padding: 2rem;
-  justify-content: center;
-  align-items: stretch;
 }
 
 h1 {
   /* border: 2px solid; */
   font-size: 3rem;
-}
-
-body > * {
-  /* border: 2px solid; */
 }
 
 .wrapper {
@@ -60,8 +58,23 @@ body > * {
 
 .pixel-container {
   aspect-ratio: 1;
+  flex-wrap: wrap;
+  flex-basis: 50%;
+}
+
+.pixel {
+  border: 1px solid red;
+  flex: auto;
+  aspect-ratio: 1;
+  flex-basis: 10%;
 }
 
 .buttons-and-tools {
   flex-basis: 20%;
+}
+
+.page-container {
+  border: 1px solid orange;
+  max-width: 100rem;
+  margin-inline: auto;
 }
