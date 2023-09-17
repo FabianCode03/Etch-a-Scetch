@@ -1,5 +1,6 @@
 const pixelContainer = document.querySelector(".pixel-container");
 const setGridBtn = document.getElementById("Set-grid-button");
+const pixels = document.querySelectorAll(".pixel");
 
 function addPixels(pixelsPerRow) {
   pixelContainer.innerHTML = "";
@@ -18,4 +19,10 @@ setGridBtn.addEventListener("click", () => {
     : pixelsPerRow > 100
     ? alert("number over 100 not allowed")
     : addPixels(pixelsPerRow);
+});
+
+pixelContainer.addEventListener("mouseover", (e) => {
+  if (e.target.classList.contains("pixel")) {
+    e.target.style.backgroundColor = "black";
+  }
 });
