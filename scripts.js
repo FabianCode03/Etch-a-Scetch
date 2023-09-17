@@ -1,6 +1,5 @@
 const pixelContainer = document.querySelector(".pixel-container");
 const setGridBtn = document.getElementById("Set-grid-button");
-const pixels = document.querySelectorAll(".pixel");
 
 function addPixels(pixelsPerRow) {
   pixelContainer.innerHTML = "";
