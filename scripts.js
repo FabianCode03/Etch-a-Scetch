@@ -2,6 +2,7 @@ const pixelContainer = document.querySelector(".pixel-container");
 const setGridBtn = document.getElementById("Set-grid-button");
 const rainbowModeBtn = document.getElementById("rainbow-mode-button");
 const clearBtn = document.getElementById("clear-button");
+const defaultPixelsPerRow = 20;
 let penColorState = "black";
 let drawingState = false;
 
@@ -59,3 +60,5 @@ function getPenColor() {
 clearBtn.addEventListener("click", () =>
   addPixels(Math.sqrt(pixelContainer.childElementCount))
 );
+
+addPixels(defaultPixelsPerRow);
