@@ -1,52 +1,68 @@
+// Constants
 const pixelContainer = document.querySelector(".pixel-container");
 const setGridBtn = document.getElementById("Set-grid-button");
 const rainbowModeBtn = document.getElementById("rainbow-mode-button");
 const clearBtn = document.getElementById("clear-button");
 const gridLinesBtn = document.getElementById("grid-lines-button");
 const defaultPixelsPerRow = 20;
+
+// State variables
 let penColorState = "black";
 let drawingState = false;
 let displayGridLines = true;
+let pixelsPerRow = defaultPixelsPerRow; // Initialize pixelsPerRow with default value
 
+// Event listeners
+setGridBtn.addEventListener("click", setGridSize);
+rainbowModeBtn.addEventListener("click", toggleRainbowMode);
+pixelContainer.addEventListener("mouseover", draw);
+pixelContainer.addEventListener("click", toggleDrawingState);
+clearBtn.addEventListener("click", clear);
+gridLinesBtn.addEventListener("click", toggleGridLines);
+
+// Functions
 function addPixels(pixelsPerRow) {
   pixelContainer.innerHTML = "";
   for (let i = 0; i < pixelsPerRow * pixelsPerRow; i++) {
-    const tempPixel = document.createElement("div");
-    tempPixel.classList.add("pixel");
-    tempPixel.classList.add("grid-lines");
-    tempPixel.style.flexBasis = `${100 / pixelsPerRow}%`;
+    const tempPixel = createPixel();
     pixelContainer.appendChild(tempPixel);
   }
 }
 
-setGridBtn.addEventListener("click", () => {
-  const pixelsPerRow = parseInt(prompt("Select pixels per row (max. 100)"));
-  pixelsPerRow < 1
-    ? alert("only positive numbers allowed")
-    : pixelsPerRow > 100
-    ? alert("number over 100 not allowed")
-    : addPixels(pixelsPerRow);
-});
+function createPixel() {
+  const tempPixel = document.createElement("div");
+  tempPixel.classList.add("pixel", "grid-lines");
+  tempPixel.style.flexBasis = `${100 / pixelsPerRow}%`;
+  return tempPixel;
+}
 
-rainbowModeBtn.addEventListener("click", () =>
-  penColorState === "black"
-    ? (penColorState = "rainbow")
-    : (penColorState = "black")
-);
-
-rainbowModeBtn.addEventListener("click", (e) => {});
-
-pixelContainer.addEventListener("mouseover", (e) => {
-  if (drawingState === true) {
-    if (e.target.classList.contains("pixel")) {
-      e.target.style.backgroundColor = getPenColor();
-    }
+function setGridSize() {
+  const input = parseInt(prompt("Select pixels per row (max. 100)"));
+  if (input >= 1 && input <= 100) {
+    pixelsPerRow = input; // Update the global variable
+    addPixels(pixelsPerRow);
+  } else {
+    alert("Please enter a number between 1 and 100.");
   }
-});
+}
 
-pixelContainer.addEventListener("click", () => (drawingState = !drawingState));
+function toggleRainbowMode() {
+  penColorState = penColorState === "black" ? "rainbow" : "black";
+}
 
-const getRandomColorValue = () => Math.floor(Math.random() * 256);
+function draw(e) {
+  if (drawingState && e.target.classList.contains("pixel")) {
+    e.target.style.backgroundColor = getPenColor();
+  }
+}
+
+function toggleDrawingState() {
+  drawingState = !drawingState;
+}
+
+function getRandomColorValue() {
+  return Math.floor(Math.random() * 256);
+}
 
 function getPenColor() {
   if (penColorState === "black") {
@@ -60,15 +76,16 @@ function getPenColor() {
   }
 }
 
-clearBtn.addEventListener("click", () =>
-  addPixels(Math.sqrt(pixelContainer.childElementCount))
-);
+function clear() {
+  addPixels(Math.sqrt(pixelContainer.childElementCount));
+}
 
-gridLinesBtn.addEventListener("click", () => {
+function toggleGridLines() {
   const pixels = document.querySelectorAll(".pixel");
   pixels.forEach((pixel) => {
     pixel.classList.toggle("grid-lines");
   });
-});
+}
 
+// Initialize the grid
 addPixels(defaultPixelsPerRow);
