@@ -3,6 +3,7 @@ const setGridBtn = document.getElementById("Set-grid-button");
 const rainbowModeBtn = document.getElementById("rainbow-mode-button");
 const clearBtn = document.getElementById("clear-button");
 let penColorState = "black";
+let drawingState = false;
 
 function addPixels(pixelsPerRow) {
   pixelContainer.innerHTML = "";
@@ -32,10 +33,14 @@ rainbowModeBtn.addEventListener("click", () =>
 rainbowModeBtn.addEventListener("click", (e) => {});
 
 pixelContainer.addEventListener("mouseover", (e) => {
-  if (e.target.classList.contains("pixel")) {
-    e.target.style.backgroundColor = getPenColor();
+  if (drawingState === true) {
+    if (e.target.classList.contains("pixel")) {
+      e.target.style.backgroundColor = getPenColor();
+    }
   }
 });
+
+pixelContainer.addEventListener("click", () => (drawingState = !drawingState));
 
 const getRandomColorValue = () => Math.floor(Math.random() * 256);
 
