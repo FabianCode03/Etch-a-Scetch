@@ -66,11 +66,14 @@ h1 {
 }
 
 .pixel {
-  border-top: 1px solid black;
-  border-left: 1px solid black;
   flex: auto;
   aspect-ratio: 1;
   flex-basis: 10%;
+}
+
+.grid-lines {
+  border-top: 1px solid black;
+  border-left: 1px solid black;
 }
 
 .buttons-and-tools {
@@ -87,6 +90,7 @@ h1 {
 }
 
 .button {
+  padding: 0.5rem;
   font-size: 1.5rem;
   border-radius: 0.25rem;
   background-color: darkcyan;

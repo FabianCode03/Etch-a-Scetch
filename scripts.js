@@ -2,15 +2,18 @@ const pixelContainer = document.querySelector(".pixel-container");
 const setGridBtn = document.getElementById("Set-grid-button");
 const rainbowModeBtn = document.getElementById("rainbow-mode-button");
 const clearBtn = document.getElementById("clear-button");
+const gridLinesBtn = document.getElementById("grid-lines-button");
 const defaultPixelsPerRow = 20;
 let penColorState = "black";
 let drawingState = false;
+let displayGridLines = true;
 
 function addPixels(pixelsPerRow) {
   pixelContainer.innerHTML = "";
   for (let i = 0; i < pixelsPerRow * pixelsPerRow; i++) {
     const tempPixel = document.createElement("div");
     tempPixel.classList.add("pixel");
+    tempPixel.classList.add("grid-lines");
     tempPixel.style.flexBasis = `${100 / pixelsPerRow}%`;
     pixelContainer.appendChild(tempPixel);
   }
@@ -60,5 +63,12 @@ function getPenColor() {
 clearBtn.addEventListener("click", () =>
   addPixels(Math.sqrt(pixelContainer.childElementCount))
 );
+
+gridLinesBtn.addEventListener("click", () => {
+  const pixels = document.querySelectorAll(".pixel");
+  pixels.forEach((pixel) => {
+    pixel.classList.toggle("grid-lines");
+  });
+});
 
 addPixels(defaultPixelsPerRow);
