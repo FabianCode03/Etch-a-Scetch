@@ -31,7 +31,10 @@ function addPixels(pixelsPerRow) {
 
 function createPixel() {
   const tempPixel = document.createElement("div");
-  tempPixel.classList.add("pixel", "grid-lines");
+  tempPixel.classList.add("pixel");
+  if (displayGridLines) {
+    tempPixel.classList.add("grid-lines");
+  }
   tempPixel.style.flexBasis = `${100 / pixelsPerRow}%`;
   return tempPixel;
 }
@@ -81,10 +84,15 @@ function clear() {
 }
 
 function toggleGridLines() {
+  toggleGridLinesState();
   const pixels = document.querySelectorAll(".pixel");
   pixels.forEach((pixel) => {
     pixel.classList.toggle("grid-lines");
   });
+}
+
+function toggleGridLinesState() {
+  displayGridLines = !displayGridLines;
 }
 
 // Initialize the grid
