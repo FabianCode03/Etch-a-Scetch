@@ -1,5 +1,7 @@
 const pixelContainer = document.querySelector(".pixel-container");
 const setGridBtn = document.getElementById("Set-grid-button");
+const rainbowModeBtn = document.getElementById("rainbow-mode-button");
+let penColorState = "black";
 
 function addPixels(pixelsPerRow) {
   pixelContainer.innerHTML = "";
@@ -20,8 +22,32 @@ setGridBtn.addEventListener("click", () => {
     : addPixels(pixelsPerRow);
 });
 
+rainbowModeBtn.addEventListener("click", () =>
+  penColorState === "black"
+    ? (penColorState = "rainbow")
+    : (penColorState = "black")
+);
+
+rainbowModeBtn.addEventListener("click", (e) => {});
+
 pixelContainer.addEventListener("mouseover", (e) => {
   if (e.target.classList.contains("pixel")) {
-    e.target.style.backgroundColor = "black";
+    e.target.style.backgroundColor = getPenColor();
   }
 });
+
+const getRandomColorValue = () => Math.floor(Math.random() * 256);
+
+function getPenColor() {
+  if (penColorState === "black") {
+    return "black";
+  }
+  if (penColorState === "rainbow") {
+    const redValue = getRandomColorValue();
+    const greenValue = getRandomColorValue();
+    const blueValue = getRandomColorValue();
+    return `rgb(${redValue}, ${greenValue}, ${blueValue})`;
+  }
+}
+
+console.log(getPenColor());

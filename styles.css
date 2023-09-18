@@ -77,6 +77,7 @@ h1 {
   background-color: grey;
   flex-basis: 20%;
   padding: 1rem;
+  gap: 1rem;
 }
 
 .page-container {
@@ -85,7 +86,7 @@ h1 {
   margin-inline: auto;
 }
 
-#Set-grid-button {
+.button {
   font-size: 1.5rem;
   border-radius: 0.25rem;
   background-color: darkcyan;
