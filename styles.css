@@ -81,6 +81,11 @@ h1 {
   flex-basis: 20%;
   padding: 1rem;
   gap: 1rem;
+  justify-content: space-between;
+}
+
+.buttons-and-tools > * {
+  gap: 1rem;
 }
 
 .page-container {
