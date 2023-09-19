@@ -17,13 +17,25 @@ let currentPixelColor;
 
 // Event listeners
 setGridBtn.addEventListener("click", () => setGridSize());
-blackPenBtn.addEventListener("click", () => changePenColorState("black"));
-shadowPenBtn.addEventListener("click", () => changePenColorState("shadow"));
-rainbowPenBtn.addEventListener("click", () => changePenColorState("rainbow"));
+blackPenBtn.addEventListener("click", () => {
+  changePenColorState("black");
+  setButtonToggleEffect(blackPenBtn);
+});
+shadowPenBtn.addEventListener("click", () => {
+  changePenColorState("shadow");
+  setButtonToggleEffect(shadowPenBtn);
+});
+rainbowPenBtn.addEventListener("click", () => {
+  changePenColorState("rainbow");
+  setButtonToggleEffect(rainbowPenBtn);
+});
 pixelContainer.addEventListener("mouseover", e => draw(e));
 pixelContainer.addEventListener("click", () => toggleDrawingState());
 clearBtn.addEventListener("click", () => clear());
-gridLinesBtn.addEventListener("click", () => toggleGridLines());
+gridLinesBtn.addEventListener("click", () => {
+  toggleGridLines();
+  setButtonToggleEffect(gridLinesBtn);
+});
 
 // Functions
 function addPixels(pixelsPerRow) {
@@ -129,6 +141,20 @@ function toggleGridLines() {
 
 function toggleGridLinesState() {
   displayGridLines = !displayGridLines;
+}
+
+function setButtonToggleEffect(button) {
+  const penButtons = [blackPenBtn, shadowPenBtn, rainbowPenBtn];
+  if (penButtons.includes(button)) {
+    penButtons.forEach(penButton => {
+      if (penButton !== button) {
+        penButton.classList.remove("toggled-on");
+      }
+    });
+    button.classList.add("toggled-on");
+  } else {
+    button.classList.toggle("toggled-on");
+  }
 }
 
 // Initialize the grid
