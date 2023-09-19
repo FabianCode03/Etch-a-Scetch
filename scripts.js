@@ -4,6 +4,7 @@ const setGridBtn = document.getElementById("Set-grid-button");
 const blackPenBtn = document.getElementById("black-mode-button");
 const shadowPenBtn = document.getElementById("shadow-mode-button");
 const rainbowPenBtn = document.getElementById("rainbow-mode-button");
+const eraserBtn = document.getElementById("eraser-mode-button");
 const clearBtn = document.getElementById("clear-button");
 const gridLinesBtn = document.getElementById("grid-lines-button");
 const defaultPixelsPerRow = 20;
@@ -28,6 +29,10 @@ shadowPenBtn.addEventListener("click", () => {
 rainbowPenBtn.addEventListener("click", () => {
   changePenColorState("rainbow");
   setButtonToggleEffect(rainbowPenBtn);
+});
+eraserBtn.addEventListener("click", () => {
+  changePenColorState("white");
+  setButtonToggleEffect(eraserBtn);
 });
 pixelContainer.addEventListener("mouseover", e => draw(e));
 pixelContainer.addEventListener("click", () => toggleDrawingState());
@@ -96,6 +101,8 @@ function getPenColor() {
       return getShadowColor();
     case "rainbow":
       return getRandomColor();
+    case "white":
+      return "rgb(255, 255, 255)";
   }
 }
 
@@ -144,7 +151,7 @@ function toggleGridLinesState() {
 }
 
 function setButtonToggleEffect(button) {
-  const penButtons = [blackPenBtn, shadowPenBtn, rainbowPenBtn];
+  const penButtons = [blackPenBtn, shadowPenBtn, rainbowPenBtn, eraserBtn];
   if (penButtons.includes(button)) {
     penButtons.forEach(penButton => {
       if (penButton !== button) {
