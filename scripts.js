@@ -1,7 +1,9 @@
 // Constants
 const pixelContainer = document.querySelector(".pixel-container");
 const setGridBtn = document.getElementById("Set-grid-button");
-const rainbowModeBtn = document.getElementById("rainbow-mode-button");
+const blackPenBtn = document.getElementById("black-mode-button");
+const shadowPenBtn = document.getElementById("shadow-mode-button");
+const rainbowPenBtn = document.getElementById("rainbow-mode-button");
 const clearBtn = document.getElementById("clear-button");
 const gridLinesBtn = document.getElementById("grid-lines-button");
 const defaultPixelsPerRow = 20;
@@ -11,14 +13,17 @@ let penColorState = "black";
 let drawingState = false;
 let displayGridLines = true;
 let pixelsPerRow = defaultPixelsPerRow; // Initialize pixelsPerRow with default value
+let currentPixelColor;
 
 // Event listeners
-setGridBtn.addEventListener("click", setGridSize);
-rainbowModeBtn.addEventListener("click", toggleRainbowMode);
-pixelContainer.addEventListener("mouseover", draw);
-pixelContainer.addEventListener("click", toggleDrawingState);
-clearBtn.addEventListener("click", clear);
-gridLinesBtn.addEventListener("click", toggleGridLines);
+setGridBtn.addEventListener("click", () => setGridSize());
+blackPenBtn.addEventListener("click", () => changePenColorState("black"));
+shadowPenBtn.addEventListener("click", () => changePenColorState("shadow"));
+rainbowPenBtn.addEventListener("click", () => changePenColorState("rainbow"));
+pixelContainer.addEventListener("mouseover", e => draw(e));
+pixelContainer.addEventListener("click", () => toggleDrawingState());
+clearBtn.addEventListener("click", () => clear());
+gridLinesBtn.addEventListener("click", () => toggleGridLines());
 
 // Functions
 function addPixels(pixelsPerRow) {
@@ -49,13 +54,17 @@ function setGridSize() {
   }
 }
 
-function toggleRainbowMode() {
-  penColorState = penColorState === "black" ? "rainbow" : "black";
+function changePenColorState(penColor) {
+  penColorState = penColor;
 }
 
 function draw(e) {
   if (drawingState && e.target.classList.contains("pixel")) {
+    currentPixelColor = e.target.style.backgroundColor
+      ? e.target.style.backgroundColor
+      : "rgb(255, 255, 255)";
     e.target.style.backgroundColor = getPenColor();
+    currentPixelColor = e.target.style.backgroundColor;
   }
 }
 
@@ -68,15 +77,42 @@ function getRandomColorValue() {
 }
 
 function getPenColor() {
-  if (penColorState === "black") {
-    return "black";
+  switch (penColorState) {
+    case "black":
+      return "rgb(0, 0, 0)";
+    case "shadow":
+      return getShadowColor();
+    case "rainbow":
+      return getRandomColor();
   }
-  if (penColorState === "rainbow") {
-    const redValue = getRandomColorValue();
-    const greenValue = getRandomColorValue();
-    const blueValue = getRandomColorValue();
-    return `rgb(${redValue}, ${greenValue}, ${blueValue})`;
+}
+
+function getShadowColor() {
+  const shadesOfBlack = [
+    "rgb(255, 255, 255)",
+    "rgb(226, 226, 226)",
+    "rgb(198, 198, 198)",
+    "rgb(170, 170, 170)",
+    "rgb(141, 141, 141)",
+    "rgb(113, 113, 113)",
+    "rgb(85, 85, 85)",
+    "rgb(56, 56, 56)",
+    "rgb(28, 28, 28)",
+    "rgb(0, 0, 0)",
+  ];
+  if (shadesOfBlack.includes(currentPixelColor)) {
+    const index = shadesOfBlack.indexOf(currentPixelColor);
+    return shadesOfBlack[index + 1];
+  } else {
+    return "rgb(255, 255, 255)";
   }
+}
+
+function getRandomColor() {
+  const redValue = getRandomColorValue();
+  const greenValue = getRandomColorValue();
+  const blueValue = getRandomColorValue();
+  return `rgb(${redValue}, ${greenValue}, ${blueValue})`;
 }
 
 function clear() {
@@ -86,7 +122,7 @@ function clear() {
 function toggleGridLines() {
   toggleGridLinesState();
   const pixels = document.querySelectorAll(".pixel");
-  pixels.forEach((pixel) => {
+  pixels.forEach(pixel => {
     pixel.classList.toggle("grid-lines");
   });
 }
